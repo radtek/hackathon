@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Corporate.COE.Framework.Http" Version="[1.3.1, 2.0.0)" />
+      <PackageReference Include="Corporate.COE.Framework.Monitoring" Version="[1.3.1, 2.0.0)" />
+      <PackageReference Include="Corporate.COE.Framework.Security" Version="[1.3.1, 2.0.0)" />
+      <PackageReference Include="Corporate.COE.Framework.Serialization" Version="[1.3.1, 2.0.0)" />
+      <PackageReference Include="Corporate.Security.Cryptor" Version="[1.0.0.467078, 2.0.0.0)" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="[2.2.0, 3.0.0)" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="[3.1.6, 4.0.0)" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="[4.1.1, 5.0.0)" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="[4.1.1, 5.0.0)" />
+      <PackageReference Include="NSwag.AspNetCore" Version="[13.6.2, 14.0.0)" />
+
+      <!-- Project References -->
+      <ProjectReference Include="..\XPInc.Hackathon.Hosts.BackgroundService\XPInc.Hackathon.Hosts.BackgroundService.csproj" />
+      <ProjectReference Include="..\..\XPInc.Hackathon.Core.Application\XPInc.Hackathon.Core.Application.csproj" />
+  </ItemGroup>
+</Project>

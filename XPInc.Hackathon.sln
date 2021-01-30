@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Infrastruct
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Infrastructure", "src\XPInc.Hackathon.Infrastructure\XPInc.Hackathon.Infrastructure.csproj", "{5E720ED1-C884-4074-80C2-074100C6BD5D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{F2BBA55F-B519-4F35-B2E1-FEC2055802DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Hosts.Api", "src\hosts\XPInc.Hackathon.Hosts.Api\XPInc.Hackathon.Hosts.Api.csproj", "{995E9714-84AE-4044-9842-FBF505354777}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
