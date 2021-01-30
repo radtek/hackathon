@@ -16,6 +16,8 @@ namespace XPInc.Hackathon.Core.Domain
 
         public Level Severity { get; private set; }
 
+        public string Trigger { get; private set; }
+
         public DateTimeOffset Time => DateTimeOffset.Now;
 
         public IncidentStatus Status { get; private set; }
@@ -36,6 +38,40 @@ namespace XPInc.Hackathon.Core.Domain
 
         private Incident()
         { }
+
+        public static Incident Create(CreateIncidentCommand command)
+        {
+            var incident = new Incident
+            {
+                TrackId = Guid.NewGuid(),
+                EventId = command.EventId,
+                Severity = command.Severity,
+                Trigger = command.Trigger,
+                Status = IncidentStatus.Problem,
+                Host = command.Host,
+                ProblemDescription = command.ProblemDescription
+            };
+
+            incident._tags.AddRange(command.Tags); // add tags if any
+
+            var actionCommand = new CreateActionCommand
+            {
+                Username = command.Username,
+                Type = ActionType.Created,
+                Message = command.ProblemDescription,
+                Status = ActionStatus.Sent
+            };
+            var action = Action.Create(actionCommand); // create a new action along with this incident
+
+            incident._actions.Add(action);
+
+            return incident;
+        }
+
+        public void AddAction(Action action)
+        {
+            _actions.Add(action);
+        }
 
         public void Resolve(ResolveIncidentCommand command)
         {
