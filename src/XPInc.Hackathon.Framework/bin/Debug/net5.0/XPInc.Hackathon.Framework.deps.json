@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "XPInc.Hackathon.Framework/1.0.0": {
+        "runtime": {
+          "XPInc.Hackathon.Framework.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "XPInc.Hackathon.Framework/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
