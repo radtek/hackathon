@@ -1,3 +1,6 @@
+using System;
+using System.Net;
+using System.Net.Mime;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -13,9 +16,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSwag.AspNetCore;
-using System;
-using System.Net;
-using System.Net.Mime;
+using XPInc.Hackathon.Core.Application.DependencyInjection;
+using XPInc.Hackathon.Core.Application.Services;
+using XPInc.Hackathon.Hosts.Api.Configuration;
+using XPInc.Hackathon.Hosts.Api.DependencyInjection;
+using XPInc.Hackathon.Hosts.Api.Middlewares;
+using XPInc.Hackathon.Hosts.BackgroundService.DependencyInjection;
+using XPInc.Hackathon.Infrastructure.DependencyInjection;
+// using XPInc.Hackathon.Infrastructure.DependencyInjection;
 
 namespace XPInc.Hackathon.Hosts.Api
 {
@@ -39,40 +47,27 @@ namespace XPInc.Hackathon.Hosts.Api
 
         public void ConfigureServices([FromServices] IServiceCollection services)
         {
-            // services
-            //     .CreateOptions(this.Configuration)
-            //     .CreateMvc()
-            //     .CreateHealthChecks()
-            //     .CreateOpenApiSpecificationMiddleware(this.ApplicationName)
-            //     .CreateAuthentication()
-            //     .CreateCacheMiddleware();
+            services
+                .CreateOptions(this.Configuration)
+                .CreateMvc()
+                .CreateHealthChecks()
+                .CreateOpenApiSpecificationMiddleware(this.ApplicationName)
+                .CreateAuthentication()
+                .CreateCacheMiddleware();
 
             // Project dependencies.
-            // services.AddApplication();
-            // Soft referencing (injecting configurations on runtime).
-            // services.AddInfrastructure(this.Configuration);
-            // Background hosted service.
-            // services.AddBackgroundService(this.Configuration);
+            services.AddInfrastructure(this.Configuration);
+            services.AddBackgroundService(this.Configuration);
 
-            // services.TryAddScoped<ExceptionMiddleware>();
-            // services.TryAddScoped<IJwtAuthentication, JwtAuthenticationService>();
-            // services.TryAddScoped<IDatabaseConnectionChecker, DatabaseConnectionChecker>();
-            services.TryAddTransient<IMediator>(factory => factory.GetService<IMediator>());
-
-            services.TryAddSingleton(factory =>
-            {
-                var configuration = new MapperConfiguration(configure =>
-                { });
-
-                return configuration.CreateMapper();
-            });
+            services.TryAddScoped<ExceptionMiddleware>();
+            services.TryAddScoped<IJwtAuthentication, JwtAuthenticationService>();
         }
 
         public void Configure([FromServices] IApplicationBuilder app,
                               [FromServices] IWebHostEnvironment env,
                               [FromServices] ILogger<Startup> logger,
-                            //   [FromServices] IOptions<ApiHealthOptions> apiOptions,
-                            //   [FromServices] IOptions<HostsOptions> hostOptions,
+                              [FromServices] IOptions<ApiHealthOptions> apiOptions,
+                              [FromServices] IOptions<HostsOptions> hostOptions,
                               [FromServices] IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
@@ -102,75 +97,75 @@ namespace XPInc.Hackathon.Hosts.Api
             app.UseResponseCaching();
             app.UseResponseCompression();
 
-            // this.ConfigureOpenApiUi(app, env, hostOptions, provider);
+            this.ConfigureOpenApiUi(app, env, hostOptions, provider);
 
-            // app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 // TODO: refactor appsettings.json and frameworks health check structure.
-                // const string ReadinessPath = "/ready";
+                const string ReadinessPath = "/ready";
 
-                // endpoints.MapHealthChecks(ReadinessPath, CreateHealthCheckOptions("readiness", logger));
-                // endpoints.MapHealthChecks(apiOptions.Value.Path.OriginalString, CreateHealthCheckOptions("liveness", logger));
+                endpoints.MapHealthChecks(ReadinessPath, CreateHealthCheckOptions("readiness", logger));
+                endpoints.MapHealthChecks(apiOptions.Value.Path.OriginalString, CreateHealthCheckOptions("liveness", logger));
                 endpoints.MapControllers();
             });
 
             logger.LogInformation("API is now running.");
 
-            // static HealthCheckOptions CreateHealthCheckOptions(string tag, ILogger<Startup> logger)
-            // {
-            //     return new HealthCheckOptions()
-            //     {
-            //         Predicate = (check) => check.Tags.Contains(tag),
-            //         ResponseWriter = async (context, result) =>
-            //         {
-            //             const string VerboseKey = "verbose";
+            static HealthCheckOptions CreateHealthCheckOptions(string tag, ILogger<Startup> logger)
+            {
+                return new HealthCheckOptions()
+                {
+                    Predicate = (check) => check.Tags.Contains(tag),
+                    ResponseWriter = async (context, result) =>
+                    {
+                        const string VerboseKey = "verbose";
 
-            //             bool enableVerboseOutput = false;
+                        bool enableVerboseOutput = false;
 
-            //             if (context.Request.QueryString.HasValue)
-            //             {
-            //                 enableVerboseOutput = context.Request.Query.ContainsKey(VerboseKey);
-            //             }
+                        if (context.Request.QueryString.HasValue)
+                        {
+                            enableVerboseOutput = context.Request.Query.ContainsKey(VerboseKey);
+                        }
 
-            //             context.Response.ContentType = MediaTypeNames.Application.Json;
+                        context.Response.ContentType = MediaTypeNames.Application.Json;
 
-            //             await context.Response.BodyWriter.WriteAsync(HealthReportSerializer.AsMemory(result, enableVerboseOutput), context.RequestAborted);
+                        await context.Response.BodyWriter.WriteAsync(HealthReportSerializer.AsMemory(result, enableVerboseOutput), context.RequestAborted);
 
-            //             LogLevel level;
+                        LogLevel level;
 
-            //             switch (result.Status)
-            //             {
-            //                 case HealthStatus.Degraded:
-            //                     {
-            //                         level = LogLevel.Warning;
+                        switch (result.Status)
+                        {
+                            case HealthStatus.Degraded:
+                                {
+                                    level = LogLevel.Warning;
 
-            //                         break;
-            //                     }
-            //                 case HealthStatus.Unhealthy:
-            //                     {
-            //                         level = LogLevel.Error;
+                                    break;
+                                }
+                            case HealthStatus.Unhealthy:
+                                {
+                                    level = LogLevel.Error;
 
-            //                         break;
-            //                     }
-            //                 case HealthStatus.Healthy:
-            //                 default:
-            //                     {
-            //                         level = LogLevel.Information;
+                                    break;
+                                }
+                            case HealthStatus.Healthy:
+                            default:
+                                {
+                                    level = LogLevel.Information;
 
-            //                         break;
-            //                     }
-            //             }
+                                    break;
+                                }
+                        }
 
-            //             logger.Log(level, "API health status is {Status}.", result.Status);
-            //         }
-            //     };
-            // }
+                        logger.Log(level, "API health status is {Status}.", result.Status);
+                    }
+                };
+            }
         }
 
         private void ConfigureOpenApiUi(IApplicationBuilder app,
                                         IWebHostEnvironment env,
-                                        // IOptions<HostsOptions> hostOptions,
+                                        IOptions<HostsOptions> hostOptions,
                                         IApiVersionDescriptionProvider provider)
         {
             app.UseOpenApi(configure =>
@@ -178,10 +173,10 @@ namespace XPInc.Hackathon.Hosts.Api
                             configure.PostProcess = (document, request) =>
                             {
                                 // Requests to the server are always different from "localhost".
-                                // if (!IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
-                                // {
-                                //     document.BasePath = $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}";
-                                // }
+                                if (!IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
+                                {
+                                    document.BasePath = $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}";
+                                }
                             };
                         });
 
@@ -197,10 +192,10 @@ namespace XPInc.Hackathon.Hosts.Api
                 configure.TransformToExternalPath = (internalUiRoute, request) =>
                 {
                     // Requests to the server are always different from "localhost".
-                    // if (internalUiRoute.StartsWith("/") && !IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
-                    // {
-                    //     return $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}{internalUiRoute}";
-                    // }
+                    if (internalUiRoute.StartsWith("/") && !IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
+                    {
+                        return $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}{internalUiRoute}";
+                    }
 
                     return internalUiRoute;
                 };

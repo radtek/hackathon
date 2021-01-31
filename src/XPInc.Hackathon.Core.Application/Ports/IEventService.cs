@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using XPInc.Hackathon.Core.Domain;
 
-namespace XPInc.Hackathon.Core.Application
+namespace XPInc.Hackathon.Core.Application.Services
 {
     public interface IEventService
     {

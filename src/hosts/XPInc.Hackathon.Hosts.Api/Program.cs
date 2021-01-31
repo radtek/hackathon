@@ -1,9 +1,9 @@
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-// using Serilog;
+using Serilog;
 
 namespace XPInc.Hackathon.Hosts.Api
 {
@@ -16,7 +16,7 @@ namespace XPInc.Hackathon.Hosts.Api
                                                 .ToArray();
 
             await CreateHostBuilder(argsInternal)
-                    // .UseSerilog()
+                    .UseSerilog()
                     .Build()
                     .RunAsync();
         }
@@ -26,11 +26,12 @@ namespace XPInc.Hackathon.Hosts.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseKestrel();
+
                     webBuilder.ConfigureAppConfiguration((builderContext, config) =>
                     {
                         config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                     });
-                    webBuilder.UseUrls("http://*:5000");
+
                     webBuilder.UseStartup<Startup>();
                 });
 
