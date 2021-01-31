@@ -10,8 +10,6 @@ namespace XPInc.Hackathon.Core.Application.Services
 
         public string Message { get; set; }
 
-
-
         public enum ActionTypes
         {
             CloseProblem = 1,

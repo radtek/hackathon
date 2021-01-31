@@ -27,9 +27,10 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
         {
             var events = _streamingBroker.Read<Event>(AppConfig.TreatedEventsStreamKey, AppConfig.EventsStreamGroupName, nameof(EventTreatmentJob), 100);
 
-            var treatmentTasks = events.Select(evt => Task.Run(() =>
-            {
-                return default;
+            var treatmentTasks = events.Select(evt => Task.Run(async () => {
+
+                // TODO: Ack events to Zabbix
+                await Task.CompletedTask;
             }));
 
             await Task.WhenAll(treatmentTasks);

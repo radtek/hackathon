@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using RestSharp;
+using XPInc.Hackathon.Core.Application.Services;
 using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Infrastructure.Zabbix.Enums;
 using XPInc.Hackathon.Infrastructure.Zabbix.Models.Request;

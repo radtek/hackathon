@@ -36,6 +36,7 @@ namespace XPInc.Hackathon.Core.Domain
 
         public IReadOnlyCollection<Action> Actions => _actions;
 
+        public Guid TeamId { get; set; }
 
         private Event()
         { }

@@ -1,4 +1,4 @@
-﻿namespace XPInc.Hackathon.Infrastructure.Zabbix.Models.Request
+﻿namespace XPInc.Hackathon.Core.Application.Services
 {
     public class EventFilterRequest
     {

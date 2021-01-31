@@ -50,7 +50,7 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.DependencyInjection
                         // We only need a few threads.
                         configure.UseDefaultThreadPool(configure => configure.MaxConcurrency = MaxNumbersOfThreads);
 
-                        configure.AddJob<ZabbixEventDigestJob>(job => job.WithIdentity(ZabbixEventDigestJobKey));
+                        configure.AddJob<EventCollectorJob>(job => job.WithIdentity(ZabbixEventDigestJobKey));
 
                         // Run it after 0 seconds and by Cron schedule.
                         configure
@@ -71,7 +71,7 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.DependencyInjection
                     })
                     .AddQuartzHostedService();
 
-                services.AddTransient<ZabbixEventDigestJob>();
+                services.AddTransient<EventCollectorJob>();
             }
 
             return services;

@@ -10,5 +10,6 @@ namespace XPInc.Hackathon.Core.Domain
         public string Text { get; set; }
         public DateTimeOffset CreationDate { get; set; } = DateTime.Now;
         public object TeamMemberId { get; set; }
+        public object TeamId { get; set; }
     }
 }
