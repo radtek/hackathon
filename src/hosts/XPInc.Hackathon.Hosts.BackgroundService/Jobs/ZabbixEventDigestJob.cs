@@ -69,8 +69,9 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
 
             this._logger.LogInformation("Hosted service 'ZabbixEventDigestJob' is getting all teams from Zabbix...");
 
+            var externalId = 12345;
             // Getting teams from Zabbix
-            var events = await this._eventService.GetEventsAsync(context.CancellationToken);
+            var events = await this._eventService.GetEventsAsync(externalId, context.CancellationToken);
 
             // foreach (var item in events)
             // {

@@ -35,7 +35,7 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
                 var lastAction = evt.Actions.LastOrDefault();
                 var diff = DateTimeOffset.Now - lastAction.CreationDate;
 
-                var alertDefinition = alertDefinitions.FirstOrDefault(a => a.EventLevel.Code == evt.Level.Code);
+                var alertDefinition = alertDefinitions.FirstOrDefault(a => a.EventLevel.Code == evt.Severity.Code);
 
                 var staggeringItem = alertDefinition.Staggering.FirstOrDefault(a => diff.TotalMinutes < a.ExpirationTime.TotalMinutes);
 
@@ -49,10 +49,9 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
                     var notification = new Notification
                     {
                         EventId = evt.Id,
-                        TeamId = evt.TeamId,
                         TeamMemberId = teamMemberId,
                         Text = evt.ProblemDescription,
-                        Title = $"{evt.Level.Code} - {evt.Host}",
+                        Title = $"{evt.Severity.Code} - {evt.Host}",
                     };
 
                     _ = notification;

@@ -1,8 +1,8 @@
-﻿using StackExchange.Redis;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StackExchange.Redis;
 using XPInc.Hackathon.Framework.Extensions;
 using XPInc.Hackathon.Framework.Streaming;
 
@@ -53,6 +53,11 @@ namespace XPInc.Hackathon.Infrastructure.Streaming
             _cache.StreamAcknowledge(key, group, entry.Select(_ => _.Id).ToArray());
 
             return entry.Select(_ => Encoding.ASCII.GetString(_.Values.FirstOrDefault(_ => _.Name == "content").Value).FromJson<T>());
+        }
+
+        public void CreateGroup(string dammedEvents, object eventsGroup)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

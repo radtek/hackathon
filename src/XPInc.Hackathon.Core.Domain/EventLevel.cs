@@ -2,22 +2,16 @@
 
 namespace XPInc.Hackathon.Core.Domain
 {
-    public class EventLevel
+    public abstract class EventLevel
     {
-        public string Code { get; }
+        public virtual string Code { get; set; }
 
-        public string Name { get; }
+        public virtual string Name { get; set; }
 
-        public bool ShouldFireNotification { get; }
+        public virtual bool ShouldFireNotification { get; set; }
 
-        public TimeSpan AverageAllocationTime { get; }
+        public virtual TimeSpan AverageAllocationTime { get; set; }
 
-        public string Color { get; }
-
-        public EventLevel(string code, string name)
-        {
-            Code = code;
-            Name = name;
-        }
+        public virtual string Color { get; set; }
     }
 }

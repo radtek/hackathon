@@ -17,7 +17,7 @@ namespace XPInc.Hackathon.Core.Application.UseCases.Commands.Handlers
 
         public Task<Unit> Handle(NotificationCommand request, CancellationToken cancellationToken)
         {
-
+            return Unit.Task;
         }
     }
 }

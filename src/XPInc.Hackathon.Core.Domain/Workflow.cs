@@ -27,7 +27,7 @@ namespace XPInc.Hackathon.Core.Domain
 
             foreach (var team in teamsWithGivenHost)
             {
-                var membersWithGivenSeverity = team.Members.Where(_ => _.Levels.Contains(command.Event.Level));
+                var membersWithGivenSeverity = team.Members.Where(_ => _.Levels.Contains(command.Event.Severity));
 
                 workflow._members.AddRange(membersWithGivenSeverity);
             }

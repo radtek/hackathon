@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Core.Domain.Repositories;
+using XPInc.Hackathon.Core.Domain.Strategies;
 using static XPInc.Hackathon.Core.Domain.AlertDefinition;
 
 namespace XPInc.Hackathon.Infrastructure.Data.Repositories
@@ -18,7 +17,7 @@ namespace XPInc.Hackathon.Infrastructure.Data.Repositories
 
             items.Add(new AlertDefinition()
             {
-                EventLevel = new EventLevel("P1", "Disaster"),
+                EventLevel = new DisasterLevel(),
                 Staggering = new List<StaggeringItem>
                 {
                 new StaggeringItem
@@ -38,7 +37,7 @@ namespace XPInc.Hackathon.Infrastructure.Data.Repositories
 
             items.Add(new AlertDefinition()
             {
-                EventLevel = new EventLevel("P2", "High"),
+                EventLevel = new HighLevel(),
                 Staggering = new List<StaggeringItem>
                 {
                 new StaggeringItem
@@ -59,6 +58,16 @@ namespace XPInc.Hackathon.Infrastructure.Data.Repositories
             await Task.CompletedTask;
 
             return items;
+        }
+
+        public Task<IEnumerable<Event>> GetEventsAsync(string teamId, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Event> GetEventAsync(string teamId, string eventId, CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
         }
 
         public Task SaveEventsAsync(IEnumerable<Event> events, CancellationToken cancellationToken = default)
