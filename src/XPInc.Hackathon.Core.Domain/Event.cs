@@ -69,7 +69,7 @@ namespace XPInc.Hackathon.Core.Domain
 
             var workflowCommand = new CreateWorkflowCommand
             {
-                Incident = incident,
+                Event = incident,
                 Teams = command.Teams
             };
             var workflow = Workflow.Create(workflowCommand); // create the event workflow

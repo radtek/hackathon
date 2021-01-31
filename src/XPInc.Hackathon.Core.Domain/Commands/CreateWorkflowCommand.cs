@@ -5,7 +5,7 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 {
     public sealed class CreateWorkflowCommand : IDomainCommand
     {
-        public Event Incident { get; set; }
+        public Event Event { get; set; }
 
         public IEnumerable<Team> Teams { get; set; }
 

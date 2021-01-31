@@ -15,11 +15,11 @@ namespace XPInc.Hackathon.Core.Domain
         {
             var alertDefinition = new AlertDefinition
             {
-                Incident = command.Incident
+                Incident = command.Event
             };
             var workflowCommand = new CreateWorkflowCommand
             {
-                Incident = command.Incident
+                Event = command.Event
             };
 
             alertDefinition.Workflow = Workflow.Create(workflowCommand); // create a new workflow
