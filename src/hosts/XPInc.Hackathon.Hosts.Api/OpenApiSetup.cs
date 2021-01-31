@@ -57,8 +57,8 @@ namespace XPInc.Hackathon.Hosts.Api
             configure.PostProcess = configure =>
             {
                 configure.Info.Version = version;
-                configure.Info.Title = "COE Assets API";
-                configure.Info.Description = "API responsible to offer an overview of XP Inc.'s COE assets.";
+                configure.Info.Title = "NOCify API";
+                configure.Info.Description = "API responsible to offer event monitoring from Zabbix services.";
                 configure.Info.TermsOfService = "https://www.xpi.com.br/assets/documents/politica-seguranca-cibernetica-06-19.pdf";
 
                 configure.Info.Contact = new OpenApiContact

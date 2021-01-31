@@ -5,9 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Polly;
+using XPInc.Hackathon.Core.Application.Services;
 using XPInc.Hackathon.Infrastructure.Configuration;
-using XPInc.Hackathon.Infrastructure.Zabbix;
 using XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles;
+using XPInc.Hackathon.Infrastructure.Zabbix.Services;
 
 namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 {
@@ -49,9 +50,7 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
             var zabbixHttpBuilder = services
                 .AddHttpClient<ZabbixEventService>(ZabbixEventService.Name, (service, configure) =>
                 {
-                    Uri.TryCreate(zabbixOptions.Value.Url, zabbixOptions.Value.Resource.Uri, out Uri path);
-
-                    configure.BaseAddress = path;
+                    configure.BaseAddress = zabbixOptions.Value.Url;
                 })
                 .AddTransientHttpErrorPolicy(builder =>
                 {
@@ -90,6 +89,7 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 #pragma warning restore S1172  // DI container injects IConfiguration on runtime.
         {
             // Inverted control.
+            services.TryAddTransient<IEventService, ZabbixEventService>();
 
             return services;
         }

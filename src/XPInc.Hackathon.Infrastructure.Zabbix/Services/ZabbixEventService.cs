@@ -5,12 +5,13 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using XPInc.Hackathon.Core.Application.Services;
 using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Framework.Extensions;
 using XPInc.Hackathon.Infrastructure.Zabbix.Models;
 
-namespace XPInc.Hackathon.Infrastructure.Zabbix
+namespace XPInc.Hackathon.Infrastructure.Zabbix.Services
 {
     public sealed class ZabbixEventService : IEventService
     {
@@ -36,10 +37,16 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
         private readonly HttpClient _httpClient;
         private readonly IMapper _mapper;
 
-        public ZabbixEventService(HttpClient httpClient, IMapper mapper)
+        public ZabbixEventService([FromServices] IHttpClientFactory httpClientFactory,
+                                  [FromServices] IMapper mapper)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            if (httpClientFactory == default)
+            {
+                throw new ArgumentNullException(nameof(httpClientFactory));
+            }
+
+            this._httpClient = httpClientFactory.CreateClient(ZabbixEventService.Name);
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public Task<IEnumerable<Team>> GetTeamsAsync(CancellationToken cancellationToken = default)

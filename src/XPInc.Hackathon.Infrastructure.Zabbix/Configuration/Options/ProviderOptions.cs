@@ -10,9 +10,6 @@ namespace XPInc.Hackathon.Infrastructure.Configuration
         [Required(ErrorMessage = "A URL must be specified.")]
         public Uri Url { get; set; }
 
-        [Required(ErrorMessage = "A resource configuration must be specified.")]
-        public ResourceOptions Resource { get; set; }
-
         public SettingOptions Setting { get; set; }
 
         public bool HasSettingsSection { get => this.Setting != default; }

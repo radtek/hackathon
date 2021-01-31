@@ -169,16 +169,16 @@ namespace XPInc.Hackathon.Hosts.Api
                                         IApiVersionDescriptionProvider provider)
         {
             app.UseOpenApi(configure =>
-                        {
-                            configure.PostProcess = (document, request) =>
-                            {
-                                // Requests to the server are always different from "localhost".
-                                if (!IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
-                                {
-                                    document.BasePath = $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}";
-                                }
-                            };
-                        });
+            {
+                configure.PostProcess = (document, request) =>
+                {
+                    // Requests to the server are always different from "localhost".
+                    if (!IPAddress.IsLoopback(request.HttpContext.Connection.RemoteIpAddress))
+                    {
+                        document.BasePath = $"/{hostOptions.Value.Api.Swagger.VirtualDirectory}";
+                    }
+                };
+            });
 
             app.UseSwaggerUi3(configure =>
             {
