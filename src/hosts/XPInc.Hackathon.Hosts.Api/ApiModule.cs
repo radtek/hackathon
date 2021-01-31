@@ -63,24 +63,28 @@ namespace XPInc.Hackathon.Hosts.Api.DependencyInjection
                     using var serviceProvider = services.BuildServiceProvider();
                     var options = serviceProvider.GetRequiredService<IOptions<HostsOptions>>().Value;
 
+                    CacheProfile cacheProfile;
+
 #pragma warning disable S3240  // Makes no sense using ternary operators here (make it more difficult to read).
                     if ((options.Api.Cache?.HasAnyProfile).GetValueOrDefault() && options.Api.Cache.ProfileMap.ContainsKey(HttpCacheControlProfile))
 #pragma warning restore S3240  // Makes no sense using ternary operators here (make it more difficult to read).
                     {
-                        setup.CacheProfiles.Add(HttpCacheControlProfile, new CacheProfile
+                        cacheProfile = new CacheProfile
                         {
                             NoStore = false,
                             Duration = (int)options.Api.Cache.ProfileMap[HttpCacheControlProfile].TotalSeconds,
                             // In case we need it to be by user-agent basis, add VaryByHeader = "User-Agent".
-                        });
+                        };
                     }
                     else
                     {
-                        setup.CacheProfiles.Add(HttpCacheControlProfile, new CacheProfile
+                        cacheProfile = new CacheProfile
                         {
                             NoStore = true
-                        });
+                        };
                     }
+
+                    setup.CacheProfiles.Add(HttpCacheControlProfile, cacheProfile);
                 })
                 .ConfigureApiBehaviorOptions(setup =>
                 {
@@ -106,9 +110,8 @@ namespace XPInc.Hackathon.Hosts.Api.DependencyInjection
         {
             services
                 .AddHealthChecks()
-                .AddCheck<ReadinessProbe>("assetsCachingJob", tags: new[] { "readiness", "hosted service" })
+                .AddCheck<ReadinessProbe>("zabbixEventDigestion", tags: new[] { "readiness", "hosted service" })
                 .AddCheck<MemoryHealthCheck>("memoryUsage", tags: new[] { "memory", "liveness" });
-                // .AddCheck<DatabaseHealthCheck>("database", tags: new[] { "database", "liveness" });
 
             services.AddSingleton<ReadinessProbe>();
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Core.Domain.Commands;
+using static XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Response.EventResponse;
 
 namespace XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles
 {
@@ -8,7 +9,8 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles
     {
         public IncidentProfile()
         {
-            CreateMap<EventDto, Event>()
+            CreateMap<EventZabbix, Event>()
+                .IgnoreAllPropertiesWithAnInaccessibleSetter()
                 .ConstructUsing(_ =>
                     Event.Create(new CreateEventCommand(int.Parse(_.Severity)) // severity must be an integer
                     {

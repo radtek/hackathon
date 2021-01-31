@@ -112,9 +112,6 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 #pragma warning restore S1172  // DI container injects IConfiguration on runtime.
         {
             // Inverted control.
-            // services.TryAddTransient<ICacheManager, CacheManager>();
-            // services.TryAddTransient<IBinaryCacheManager, BinaryCacheManager>();
-            // services.TryAddTransient<IAsyncBinarySerializer, BinarySerializer>();
             services.TryAddTransient<ICacheSerializerAsync<string>, CacheSerialization>();
             services.TryAddScoped<ICacheSerializerAsync<Stream>, CacheSerialization>();
 

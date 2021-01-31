@@ -46,11 +46,11 @@ namespace XPInc.Hackathon.Core.Application.UseCases.Commands.Handlers
 
             var teams = new[] { team };
 
-            var internalEvent = new Event()
-            {
+            //var internalEvent = new Event()
+            //{
 
 
-            }
+            //};
 
             var eventCreationTasks = teams.Select(team => Task.Run(async () =>
             {
@@ -66,14 +66,47 @@ namespace XPInc.Hackathon.Core.Application.UseCases.Commands.Handlers
 
 
 
-                _eventRepository.SaveEventsAsync()
+                //_eventRepository.SaveEventsAsync();
 
-            });
+            }));
 
             await Task.WhenAll(eventCreationTasks);
 
 
-       
+            // Notification worker
+
+            //var lastAction = internalEvent.Actions.LastOrDefault();
+
+            var alertDefinition = new AlertDefinition()
+            {
+                EventLevel = new UnknowLevel(),
+                Scenarios = new List<Scenario>
+                {
+                new Scenario
+                {
+                    Index = 0,
+                    ExpirationTime = TimeSpan.FromMinutes(5),
+                    TeamMembers = new List<Guid>{Guid.NewGuid()}
+                },
+                new Scenario
+                {
+                    Index =1,
+                    ExpirationTime = TimeSpan.FromMinutes(10),
+                      TeamMembers = new List<Guid>{Guid.NewGuid()}
+                }
+                }
+            };
+
+
+            //var diff = DateTimeOffset.Now - lastAction.Time;
+            ////var scenario = alertDefinition.Scenarios.FirstOrDefault(a => diff.TotalMinutes < a.ExpirationTime.Total);
+
+            //var notification = new Notification
+            //{
+            //    EventId = internalEvent.Id,
+            //    Text = internalEvent.ProblemDescription,
+            //    Title = $"{internalEvent.Severity.Code} - {internalEvent.Host}"
+            //};
 
             return Unit.Value;
         }

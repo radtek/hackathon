@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using XPInc.Hackathon.Core.Domain.Commands;
 using static XPInc.Hackathon.Core.Domain.AlertDefinition;
 
@@ -12,12 +13,10 @@ namespace XPInc.Hackathon.Core.Domain
         private readonly List<Action> _actions = new List<Action>();
 
         public Guid Id { get; private set; }
-        public Guid TeamId { get; set; }
 
         public string ExternalId { get; private set; }
-        public string ExternalGroupId { get; set; }
 
-        public EventLevel Level { get; private set; }
+        public EventLevel Severity { get; private set; }
 
         public string Trigger { get; private set; }
 
@@ -37,24 +36,26 @@ namespace XPInc.Hackathon.Core.Domain
 
         public IReadOnlyCollection<Action> Actions => _actions;
 
+
         private Event()
         { }
 
 
         public static Event Create(CreateEventCommand command)
         {
-            var evt = new Event
+            var incident = new Event
             {
                 Id = Guid.NewGuid(),
                 ExternalId = command.EventId,
-                Level = command.Severity,
+                Severity = command.Severity,
                 Trigger = command.Trigger,
                 Status = IncidentStatus.Problem,
                 Host = command.Host,
                 ProblemDescription = command.ProblemDescription
             };
 
-            evt._tags.AddRange(command.Tags); // add tags if any
+            if (command?.Tags?.Any() ?? false)
+                incident._tags.AddRange(command?.Tags); // add tags if any
 
             var actionCommand = new CreateActionCommand
             {
@@ -65,9 +66,18 @@ namespace XPInc.Hackathon.Core.Domain
             };
             var action = Action.Create(actionCommand); // create a new action along with this incident
 
-            evt._actions.Add(action);
+            incident._actions.Add(action);
 
-            return evt;
+            var workflowCommand = new CreateWorkflowCommand
+            {
+                Event = incident,
+                Teams = command.Teams
+            };
+            var workflow = Workflow.Create(workflowCommand); // create the event workflow
+
+           //incident.Workflow = workflow;
+
+            return incident;
         }
 
         public void AddAction(Action action) => _actions.Add(action);
