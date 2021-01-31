@@ -30,7 +30,7 @@ namespace XPInc.Hackathon.Core.Domain
         public static TeamMember Create(CreateTeamMemberCommand command) => new TeamMember
         {
             Id = Guid.NewGuid(),
-            ExternalId = command.ExternalId,
+            //ExternalId = command.ExternalId,
             Name = command.Name,
             Username = command.Username,
             Enabled = true,

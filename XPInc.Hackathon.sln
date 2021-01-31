@@ -17,17 +17,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCuttin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{18DB645D-947F-45D5-AC0E-8E15C45D0A88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Infrastructure.Streaming", "src\XPInc.Hackathon.Infrastructure.Streaming\XPInc.Hackathon.Infrastructure.Streaming.csproj", "{3277FF35-BA2D-45FB-89E1-D9EF241F02DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Infrastructure.Streaming", "src\XPInc.Hackathon.Infrastructure.Streaming\XPInc.Hackathon.Infrastructure.Streaming.csproj", "{3277FF35-BA2D-45FB-89E1-D9EF241F02DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Infrastructure.Zabbix", "src\XPInc.Hackathon.Infrastructure.Zabbix\XPInc.Hackathon.Infrastructure.Zabbix.csproj", "{3A0FB1A9-6B41-4056-BE24-1DBF04D20497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Infrastructure.Zabbix", "src\XPInc.Hackathon.Infrastructure.Zabbix\XPInc.Hackathon.Infrastructure.Zabbix.csproj", "{3A0FB1A9-6B41-4056-BE24-1DBF04D20497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Infrastructure", "src\XPInc.Hackathon.Infrastructure\XPInc.Hackathon.Infrastructure.csproj", "{5E720ED1-C884-4074-80C2-074100C6BD5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Infrastructure", "src\XPInc.Hackathon.Infrastructure\XPInc.Hackathon.Infrastructure.csproj", "{5E720ED1-C884-4074-80C2-074100C6BD5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "hosts", "hosts", "{5D5B40DF-4761-462B-A5DC-D3F95EA390AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Hosts.Api", "src\hosts\XPInc.Hackathon.Hosts.Api\XPInc.Hackathon.Hosts.Api.csproj", "{59C755CC-6DA0-4DB3-8FCD-33F865C35E99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Hosts.Api", "src\hosts\XPInc.Hackathon.Hosts.Api\XPInc.Hackathon.Hosts.Api.csproj", "{59C755CC-6DA0-4DB3-8FCD-33F865C35E99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPInc.Hackathon.Hosts.BackgroundService", "src\hosts\XPInc.Hackathon.Hosts.BackgroundService\XPInc.Hackathon.Hosts.BackgroundService.csproj", "{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Hosts.BackgroundService", "src\hosts\XPInc.Hackathon.Hosts.BackgroundService\XPInc.Hackathon.Hosts.BackgroundService.csproj", "{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XPInc.Hackathon.Infra.Zabbix", "src\XPInc.Hackathon.Infra.Zabbix\XPInc.Hackathon.Infra.Zabbix.csproj", "{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -135,6 +139,30 @@ Global
 		{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F}.Release|x64.Build.0 = Release|Any CPU
 		{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F}.Release|x86.ActiveCfg = Release|Any CPU
 		{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F}.Release|x86.Build.0 = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|x64.Build.0 = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF3DDD98-B62B-44CF-8B86-6B11B159ABCE}.Release|x86.Build.0 = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|x64.Build.0 = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2D0BC5E-DB4C-46E0-8194-6A872CF3A1C7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +182,6 @@ Global
 		{F2823DEC-4EC2-4FB3-A18D-EC6C915CFE4F} = {5D5B40DF-4761-462B-A5DC-D3F95EA390AD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {7A2E1872-3C4E-4446-B556-DEEC33614686}
+		SolutionGuid = {3185AE51-9526-4170-9141-8A4DF7F05ADD}
 	EndGlobalSection
 EndGlobal

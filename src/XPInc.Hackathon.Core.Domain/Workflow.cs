@@ -23,7 +23,7 @@ namespace XPInc.Hackathon.Core.Domain
                 Event = command.Event
             };
 
-            var teamsWithGivenHost = command.Teams.Where(_ => _.Hosts.Contains(command.Event.Host));
+            var teamsWithGivenHost = command.Teams?.Where(_ => _.Hosts.Contains(command.Event.Host)) ?? new List<Team>();
 
             foreach (var team in teamsWithGivenHost)
             {

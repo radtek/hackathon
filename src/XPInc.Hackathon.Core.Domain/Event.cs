@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using XPInc.Hackathon.Core.Domain.Commands;
 using static XPInc.Hackathon.Core.Domain.AlertDefinition;
 
@@ -53,7 +54,8 @@ namespace XPInc.Hackathon.Core.Domain
                 ProblemDescription = command.ProblemDescription
             };
 
-            incident._tags.AddRange(command.Tags); // add tags if any
+            if (command?.Tags?.Any() ?? false)
+                incident._tags.AddRange(command?.Tags); // add tags if any
 
             var actionCommand = new CreateActionCommand
             {
@@ -73,7 +75,7 @@ namespace XPInc.Hackathon.Core.Domain
             };
             var workflow = Workflow.Create(workflowCommand); // create the event workflow
 
-            incident.Workflow = workflow;
+           //incident.Workflow = workflow;
 
             return incident;
         }
