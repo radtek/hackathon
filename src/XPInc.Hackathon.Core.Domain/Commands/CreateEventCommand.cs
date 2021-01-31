@@ -10,7 +10,7 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 
         public string EventId { get; set; }
 
-        public Level Severity { get; set; }
+        public EventLevel Severity { get; set; }
 
         public string Trigger { get; set; }
 

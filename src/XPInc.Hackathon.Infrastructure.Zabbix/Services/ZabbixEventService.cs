@@ -54,7 +54,7 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Event>> GetEventsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ExternalEventResponse>> GetEventsAsync(CancellationToken cancellationToken = default)
         {
             Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
 
@@ -99,7 +99,7 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix.Services
                 method = "event.acknowledge",
                 @params = new
                 {
-                    eventids = incidents.Select(_ => _.EventId),
+                    eventids = incidents.Select(_ => _.ExternalId),
                     message = "Problem resolved"
                 },
                 auth = Token,

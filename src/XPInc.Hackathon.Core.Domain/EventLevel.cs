@@ -2,7 +2,7 @@ using System;
 
 namespace XPInc.Hackathon.Core.Domain
 {
-    public abstract class Level
+    public abstract class EventLevel
     {
         public abstract string Code { get; }
 

@@ -3,5 +3,6 @@
 namespace XPInc.Hackathon.Core.Application.UseCases.Commands
 {
     public sealed class CreateEvent : ICommand
-    { }
+    { 
+    }
 }

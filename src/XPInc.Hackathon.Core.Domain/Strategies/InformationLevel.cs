@@ -2,7 +2,7 @@ using System;
 
 namespace XPInc.Hackathon.Core.Domain.Strategies
 {
-    public sealed class InformationLevel : Level
+    public sealed class InformationLevel : EventLevel
     {
         public override string Code => "PI";
 

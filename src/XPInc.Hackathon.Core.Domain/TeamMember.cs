@@ -6,7 +6,7 @@ namespace XPInc.Hackathon.Core.Domain
 {
     public sealed class TeamMember
     {
-        private readonly List<Level> _levels = new List<Level>();
+        private readonly List<EventLevel> _levels = new List<EventLevel>();
 
         public Guid Id { get; private set; }
 
@@ -22,14 +22,15 @@ namespace XPInc.Hackathon.Core.Domain
 
         public TeamMember Manager { get; private set; }
 
-        public IReadOnlyCollection<Level> Levels => _levels;
+        public IReadOnlyCollection<EventLevel> Levels => _levels;
 
-        private TeamMember()
+        public TeamMember()
         { }
 
         public static TeamMember Create(CreateTeamMemberCommand command) => new TeamMember
         {
             Id = Guid.NewGuid(),
+            ExternalId = command.ExternalId,
             Name = command.Name,
             Username = command.Username,
             Enabled = true,

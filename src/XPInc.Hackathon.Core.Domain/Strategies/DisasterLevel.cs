@@ -2,7 +2,7 @@ using System;
 
 namespace XPInc.Hackathon.Core.Domain.Strategies
 {
-    public sealed class DisasterLevel : Level
+    public sealed class DisasterLevel : EventLevel
     {
         public override string Code => "P1";
 

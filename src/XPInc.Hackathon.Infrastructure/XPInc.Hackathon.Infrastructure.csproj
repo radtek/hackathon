@@ -25,4 +25,7 @@
     <ProjectReference Include="..\XPInc.Hackathon.Infrastructure.Streaming\XPInc.Hackathon.Infrastructure.Streaming.csproj" />
     <ProjectReference Include="..\XPInc.Hackathon.Infrastructure.Zabbix\XPInc.Hackathon.Infrastructure.Zabbix.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Repositories\" />
+  </ItemGroup>
 </Project>

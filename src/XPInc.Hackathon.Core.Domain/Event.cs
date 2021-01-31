@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using XPInc.Hackathon.Core.Domain.Commands;
+using static XPInc.Hackathon.Core.Domain.AlertDefinition;
 
 namespace XPInc.Hackathon.Core.Domain
 {
@@ -10,11 +11,11 @@ namespace XPInc.Hackathon.Core.Domain
 
         private readonly List<Action> _actions = new List<Action>();
 
-        public Guid TrackId { get; private set; }
+        public Guid Id { get; private set; }
 
-        public string EventId { get; private set; }
+        public string ExternalId { get; private set; }
 
-        public Level Severity { get; private set; }
+        public EventLevel Severity { get; private set; }
 
         public string Trigger { get; private set; }
 
@@ -32,21 +33,19 @@ namespace XPInc.Hackathon.Core.Domain
 
         public bool Acknowledge { get; private set; }
 
-        public Workflow Workflow { get; private set; }
-
-        public IReadOnlyCollection<string> Tags => _tags;
-
         public IReadOnlyCollection<Action> Actions => _actions;
+
 
         private Event()
         { }
+
 
         public static Event Create(CreateEventCommand command)
         {
             var incident = new Event
             {
-                TrackId = Guid.NewGuid(),
-                EventId = command.EventId,
+                Id = Guid.NewGuid(),
+                ExternalId = command.EventId,
                 Severity = command.Severity,
                 Trigger = command.Trigger,
                 Status = IncidentStatus.Problem,
