@@ -5,4 +5,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\XPInc.Hackathon.Core.Application\XPInc.Hackathon.Core.Application.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	</ItemGroup>
 </Project>
