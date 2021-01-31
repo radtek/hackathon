@@ -14,6 +14,7 @@ namespace XPInc.Hackathon.Core.Domain.Commands
         public string Phone { get; set; }
 
         public TeamMember Manager { get; set; }
+        public string ExternalId { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 
 namespace XPInc.Hackathon.Core.Domain.Strategies
 {
-    public sealed class AverageLevel : Level
+    public sealed class AverageLevel : EventLevel
     {
         public override string Code => "P3";
 

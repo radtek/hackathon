@@ -6,6 +6,7 @@ namespace XPInc.Hackathon.Core.Domain.Commands
     public sealed class CreateTeamCommand : IDomainCommand
     {
         public string Name { get; set; }
+        public int ExternalId { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

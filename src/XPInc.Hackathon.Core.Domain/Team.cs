@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using XPInc.Hackathon.Core.Domain.Commands;
 
 namespace XPInc.Hackathon.Core.Domain
@@ -20,12 +21,15 @@ namespace XPInc.Hackathon.Core.Domain
 
         public IReadOnlyCollection<string> Hosts => _hosts;
 
+        public int ExternalId { get; set; }
+
         private Team()
         { }
 
         public static Team Create(CreateTeamCommand command) => new Team
         {
             Id = Guid.NewGuid(),
+            ExternalId = command.ExternalId,
             Name = command.Name,
             CreateDate = DateTimeOffset.Now
         };
