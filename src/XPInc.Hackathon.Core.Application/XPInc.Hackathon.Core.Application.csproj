@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Ports\Dto\" />
-    <Folder Include="UseCases\Commands\Handlers\Abstractions\" />
     <Folder Include="UseCases\Queries\Handlers\Abstractions\" />
   </ItemGroup>
 </Project>
