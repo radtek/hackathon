@@ -32,6 +32,8 @@ namespace XPInc.Hackathon.Core.Domain
 
         public bool Acknowledge { get; private set; }
 
+        public Workflow Workflow { get; private set; }
+
         public IReadOnlyCollection<string> Tags => _tags;
 
         public IReadOnlyCollection<Action> Actions => _actions;
@@ -64,6 +66,15 @@ namespace XPInc.Hackathon.Core.Domain
             var action = Action.Create(actionCommand); // create a new action along with this incident
 
             incident._actions.Add(action);
+
+            var workflowCommand = new CreateWorkflowCommand
+            {
+                Incident = incident,
+                Teams = command.Teams
+            };
+            var workflow = Workflow.Create(workflowCommand); // create the event workflow
+
+            incident.Workflow = workflow;
 
             return incident;
         }

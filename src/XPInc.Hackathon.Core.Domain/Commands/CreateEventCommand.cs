@@ -20,6 +20,8 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 
         public IEnumerable<string> Tags { get; set; }
 
+        public IEnumerable<Team> Teams { get; set; }
+
         public CreateEventCommand()
         { }
 
