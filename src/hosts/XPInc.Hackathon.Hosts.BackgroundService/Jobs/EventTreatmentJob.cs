@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Quartz;
 using XPInc.Hackathon.Core.Application.Services;
@@ -29,13 +27,10 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
         {
             var events = _streamingBroker.Read<Event>(AppConfig.TreatedEventsStreamKey, AppConfig.EventsStreamGroupName, nameof(EventTreatmentJob), 100);
 
-            var treatmentTasks = events.Select(evt => Task.Run(() => { 
-            
-            
+            var treatmentTasks = events.Select(evt => Task.Run(async () => {
 
-               
-                _eventService.AckAsync()
-
+                // TODO: Ack events to Zabbix
+                await Task.CompletedTask;
             }));
 
             await Task.WhenAll(treatmentTasks);

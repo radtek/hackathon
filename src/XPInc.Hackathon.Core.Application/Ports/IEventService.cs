@@ -7,9 +7,9 @@ namespace XPInc.Hackathon.Core.Application.Services
 {
     public interface IEventService
     {
-        Task<IEnumerable<Team>> GetTeamsAsync(CancellationToken cancellationToken = default);
+        Task<LoginResponse> LoginAsync(string user, string pass, CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<Event>> GetEventsAsync(int externalId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Event>> GetEventsAsync(EventFilterRequest request, CancellationToken cancellationToken = default);
 
         Task<IEnumerable<string>> AckAsync(EventAckRequest request, CancellationToken cancellationToken = default);
     }

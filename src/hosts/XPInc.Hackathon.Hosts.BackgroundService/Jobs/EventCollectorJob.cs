@@ -11,17 +11,17 @@ using XPInc.Hackathon.Hosts.BackgroundService.Middlewares;
 
 namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
 {
-    public class ZabbixEventDigestJob : IJob
+    public class EventCollectorJob : IJob
     {
         private const string ZabbixEventDigestProfileKey = "ZabbixEvents";
 
-        private readonly ILogger<ZabbixEventDigestJob> _logger;
+        private readonly ILogger<EventCollectorJob> _logger;
         private readonly IEventService _eventService;
         private readonly BackgroundServiceOptions _options;
         private readonly IMediator _mediator;
         private readonly ReadinessProbe _probe;
 
-        public ZabbixEventDigestJob([FromServices] ILogger<ZabbixEventDigestJob> logger,
+        public EventCollectorJob([FromServices] ILogger<EventCollectorJob> logger,
                                     [FromServices] IOptions<BackgroundServiceOptions> options,
                                     [FromServices] IEventService eventService,
                                     [FromServices] IMediator mediator,
@@ -65,7 +65,7 @@ namespace XPInc.Hackathon.Hosts.BackgroundService.Jobs
 
             var duration = this._options.BackgroundService.HasCacheSection
                                     ? this._options.BackgroundService.Cache.ProfileMap[ZabbixEventDigestProfileKey]
-                                    : throw new InvalidOperationException($"Could not execute '{nameof(ZabbixEventDigestJob)}' background service.");
+                                    : throw new InvalidOperationException($"Could not execute '{nameof(EventCollectorJob)}' background service.");
 
             this._logger.LogInformation("Hosted service 'ZabbixEventDigestJob' is getting all teams from Zabbix...");
 
