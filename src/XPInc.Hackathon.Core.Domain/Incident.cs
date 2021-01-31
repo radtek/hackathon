@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using XPInc.Hackathon.Core.Domain.Commands;
 
@@ -68,10 +68,7 @@ namespace XPInc.Hackathon.Core.Domain
             return incident;
         }
 
-        public void AddAction(Action action)
-        {
-            _actions.Add(action);
-        }
+        public void AddAction(Action action) => _actions.Add(action);
 
         public void Resolve(ResolveIncidentCommand command)
         {

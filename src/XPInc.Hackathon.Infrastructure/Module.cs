@@ -1,11 +1,14 @@
-﻿using MediatR;
+﻿using System;
+using AutoMapper;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using XPInc.Hackathon.Core.Application;
 using XPInc.Hackathon.Framework.Streaming;
 using XPInc.Hackathon.Infrastructure.Streaming;
 using XPInc.Hackathon.Infrastructure.Zabbix;
+using XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles;
 
 namespace XPInc.Hackathon.Infrastructure
 {
@@ -17,11 +20,14 @@ namespace XPInc.Hackathon.Infrastructure
                 .Bind(configuration.GetSection("Infrastructure:Streaming"));
 
             // configure streaming broker
-            services.AddSingleton<IStreamingConfiguration, RedisStreamingConfiguration>();
-            services.AddTransient<IStreamingBroker, RedisStreamingBroker>();
+            services.TryAddSingleton<IStreamingConfiguration, RedisStreamingConfiguration>();
+            services.TryAddTransient<IStreamingBroker, RedisStreamingBroker>();
 
             // configure CQRS stack
             services.AddMediatR(typeof(Module));
+
+            // configure mapper and mapper profiles
+            services.AddAutoMapper(typeof(Module)).RegisterProfiles();
 
             // configure application ports & adapters
             services.AddHttpClient<IIncidentService, ZabbixIncidentService>(cfg =>
@@ -30,6 +36,17 @@ namespace XPInc.Hackathon.Infrastructure
             });
 
             return services;
+        }
+
+        private static void RegisterProfiles(this IServiceCollection services)
+        {
+            services.TryAddSingleton(provider =>
+            {
+                return new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile(new IncidentProfile());
+                });
+            });
         }
     }
 }

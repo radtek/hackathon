@@ -27,25 +27,17 @@ namespace XPInc.Hackathon.Core.Domain
         private TeamMember()
         { }
 
-        public static TeamMember Create(CreateTeamMemberCommand command)
+        public static TeamMember Create(CreateTeamMemberCommand command) => new TeamMember
         {
-            var member = new TeamMember
-            {
-                Id = Guid.NewGuid(),
-                Name = command.Name,
-                Username = command.Username,
-                Enabled = true,
-                Email = command.Email,
-                Phone = command.Phone,
-                Manager = command.Manager
-            };
+            Id = Guid.NewGuid(),
+            Name = command.Name,
+            Username = command.Username,
+            Enabled = true,
+            Email = command.Email,
+            Phone = command.Phone,
+            Manager = command.Manager
+        };
 
-            return member;
-        }
-
-        public void ChangeManager(TeamMember member)
-        {
-            Manager = member;
-        }
+        public void ChangeManager(TeamMember member) => Manager = member;
     }
 }

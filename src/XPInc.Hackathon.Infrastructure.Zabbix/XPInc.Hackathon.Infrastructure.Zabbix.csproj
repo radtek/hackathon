@@ -4,11 +4,11 @@
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+  </ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\XPInc.Hackathon.Core.Application\XPInc.Hackathon.Core.Application.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Helpers\" />
 	</ItemGroup>
 </Project>

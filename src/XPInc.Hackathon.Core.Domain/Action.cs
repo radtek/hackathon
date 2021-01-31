@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using XPInc.Hackathon.Core.Domain.Commands;
 
 namespace XPInc.Hackathon.Core.Domain
@@ -20,19 +20,14 @@ namespace XPInc.Hackathon.Core.Domain
         private Action()
         { }
 
-        public static Action Create(CreateActionCommand command)
+        public static Action Create(CreateActionCommand command) => new Action
         {
-            var action = new Action
-            {
-                TrackerId = Guid.NewGuid(),
-                Username = command.Username,
-                Time = DateTimeOffset.Now,
-                Type = command.Type,
-                Message = command.Message,
-                Status = command.Status
-            };
-
-            return action;
-        }
+            TrackerId = Guid.NewGuid(),
+            Username = command.Username,
+            Time = DateTimeOffset.Now,
+            Type = command.Type,
+            Message = command.Message,
+            Status = command.Status
+        };
     }
 }

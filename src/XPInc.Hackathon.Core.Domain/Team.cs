@@ -23,21 +23,13 @@ namespace XPInc.Hackathon.Core.Domain
         private Team()
         { }
 
-        public static Team Create(CreateTeamCommand command)
+        public static Team Create(CreateTeamCommand command) => new Team
         {
-            var team = new Team
-            {
-                Id = Guid.NewGuid(),
-                Name = command.Name,
-                CreateDate = DateTimeOffset.Now
-            };
+            Id = Guid.NewGuid(),
+            Name = command.Name,
+            CreateDate = DateTimeOffset.Now
+        };
 
-            return team;
-        }
-
-        public void AddMember(IEnumerable<TeamMember> members)
-        {
-            _members.AddRange(members);
-        }
+        public void AddMember(IEnumerable<TeamMember> members) => _members.AddRange(members);
     }
 }
