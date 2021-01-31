@@ -4,7 +4,9 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Polly;
 using XPInc.Hackathon.Core.Application;
+using XPInc.Hackathon.Framework.Extensions;
 using XPInc.Hackathon.Framework.Streaming;
 using XPInc.Hackathon.Infrastructure.Streaming;
 using XPInc.Hackathon.Infrastructure.Zabbix;
@@ -16,8 +18,12 @@ namespace XPInc.Hackathon.Infrastructure
     {
         public static IServiceCollection ConfigureInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            // configure options
             services.AddOptions<RedisStreamingConfiguration>()
                 .Bind(configuration.GetSection("Infrastructure:Streaming"));
+
+            services.AddOptions<ZabbixOptions>()
+                .Bind(configuration.GetSection($"Infrastructure:Services:{ZabbixOptions.Section}"));
 
             // configure streaming broker
             services.TryAddSingleton<IStreamingConfiguration, RedisStreamingConfiguration>();
@@ -30,10 +36,22 @@ namespace XPInc.Hackathon.Infrastructure
             services.AddAutoMapper(typeof(Module)).RegisterProfiles();
 
             // configure application ports & adapters
-            services.AddHttpClient<IIncidentService, ZabbixIncidentService>(cfg =>
-            {
-                cfg.BaseAddress = new Uri("");
-            });
+            var zabbixOptions = services.GetOptions<ZabbixOptions>().Value; // get zabbix service options
+
+            services
+                .AddHttpClient<IIncidentService, ZabbixIncidentService>(cfg =>
+                {
+                    cfg.BaseAddress = new Uri(zabbixOptions.Endpoint);
+                })
+                // configure service resilience strategy
+                .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(
+                    zabbixOptions.RetryCount ?? 3, // max number of retries
+                    retryAtt => TimeSpan.FromSeconds(Math.Pow(zabbixOptions.SleepSecondsPow ?? 2, retryAtt)) // sleep between each retry
+                ))
+                .AddTransientHttpErrorPolicy(builder => builder.CircuitBreakerAsync(
+                    handledEventsAllowedBeforeBreaking: zabbixOptions.ExceptionsBeforeBreak ?? 3, // exceptions allowed before circuit open
+                    durationOfBreak: zabbixOptions.DurationOfBreak ?? TimeSpan.FromSeconds(30) // time that circuit stays opened
+                ));
 
             return services;
         }

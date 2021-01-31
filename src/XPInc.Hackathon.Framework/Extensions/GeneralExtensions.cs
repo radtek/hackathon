@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace XPInc.Hackathon.Framework.Extensions
 {
@@ -56,6 +58,13 @@ namespace XPInc.Hackathon.Framework.Extensions
                 ).ToArray();
 
             return string.Join('&', array);
+        }
+
+        public static IOptions<T> GetOptions<T>(this IServiceCollection services) where T : class
+        {
+            var provider = services.BuildServiceProvider();
+
+            return provider.GetRequiredService<IOptions<T>>();
         }
     }
 }
