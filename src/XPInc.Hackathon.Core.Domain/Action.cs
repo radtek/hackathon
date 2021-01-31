@@ -9,7 +9,7 @@ namespace XPInc.Hackathon.Core.Domain
 
         public string Username { get; private set; }
 
-        public DateTimeOffset Time { get; private set; }
+        public DateTimeOffset CreationDate { get; private set; }
 
         public ActionType Type { get; private set; }
 
@@ -24,7 +24,7 @@ namespace XPInc.Hackathon.Core.Domain
         {
             TrackerId = Guid.NewGuid(),
             Username = command.Username,
-            Time = DateTimeOffset.Now,
+            CreationDate = DateTimeOffset.Now,
             Type = command.Type,
             Message = command.Message,
             Status = command.Status

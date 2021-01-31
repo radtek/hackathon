@@ -11,6 +11,6 @@ namespace XPInc.Hackathon.Core.Application.Services
 
         Task<IEnumerable<Event>> GetEventsAsync(int externalId, CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<string>> AckAsync(IEnumerable<Event> incidents, CancellationToken cancellationToken = default);
+        Task<IEnumerable<string>> AckAsync(EventAckRequest request, CancellationToken cancellationToken = default);
     }
 }

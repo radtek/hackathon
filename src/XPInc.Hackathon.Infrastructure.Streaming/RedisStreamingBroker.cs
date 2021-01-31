@@ -45,9 +45,9 @@ namespace XPInc.Hackathon.Infrastructure.Streaming
             _cache.StreamAdd(key, "content", value.ToJson());
         }
 
-        public IEnumerable<T> Read<T>(string key, string group, string consumer, int? countPerStream = default)
+        public IEnumerable<T> Read<T>(string key, string group, string consumer, int? count = default)
         {
-            var entry = _cache.StreamReadGroup(key, group, consumer, countPerStream);
+            var entry = _cache.StreamReadGroup(key, group, consumer, count: count);
 
             // ack entry response
             _cache.StreamAcknowledge(key, group, entry.Select(_ => _.Id).ToArray());

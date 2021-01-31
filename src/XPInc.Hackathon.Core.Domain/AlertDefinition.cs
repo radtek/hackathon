@@ -10,9 +10,9 @@ namespace XPInc.Hackathon.Core.Domain
 
         public EventLevel EventLevel { get; set; }
 
-        public IEnumerable<Scenario> Scenarios { get; set; }
+        public IEnumerable<StaggeringItem> Staggering { get; set; }
 
-        public class Scenario
+        public class StaggeringItem
         {
             public TimeSpan ExpirationTime { get; set; }
 

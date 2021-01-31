@@ -1,17 +1,23 @@
-using System;
+﻿using System;
 
 namespace XPInc.Hackathon.Core.Domain
 {
-    public abstract class EventLevel
+    public class EventLevel
     {
-        public abstract string Code { get; }
+        public string Code { get; }
 
-        public abstract string Name { get; }
+        public string Name { get; }
 
-        public abstract bool ShouldFireNotification { get; }
+        public bool ShouldFireNotification { get; }
 
-        public abstract TimeSpan AverageAllocationTime { get; }
+        public TimeSpan AverageAllocationTime { get; }
 
-        public abstract string Color { get; }
+        public string Color { get; }
+
+        public EventLevel(string code, string name)
+        {
+            Code = code;
+            Name = name;
+        }
     }
 }

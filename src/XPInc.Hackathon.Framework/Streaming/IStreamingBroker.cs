@@ -7,6 +7,7 @@ namespace XPInc.Hackathon.Framework.Streaming
     {
         void CreateGroup(string key, string group);
         void Add<T>(string key, T value);
-        IEnumerable<T> Read<T>(string key, string group, string consumer, int? countPerStream = default);
+        IEnumerable<T> Read<T>(string key, string group, string consumer, int? count = default);
+        void CreateGroup(string dammedEvents, object eventsGroup);
     }
 }

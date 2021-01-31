@@ -82,7 +82,7 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
             return events;
         }
 
-        public async Task<IEnumerable<string>> AckAsync(IEnumerable<Event> incidents, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<string>> AckAsync(EventAckRequest request, CancellationToken cancellationToken = default)
         {
             Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
 
@@ -92,12 +92,14 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
                 method = "event.acknowledge",
                 @params = new
                 {
-                    eventids = incidents.Select(_ => _.ExternalId),
-                    message = "Problem resolved"
+                    eventids = request.EventIds,
+                    action = (int)request.Action,
+                    message = request.Message
                 },
                 auth = Token,
                 id = 1
             };
+
             var content = new StringContent(body.ToJson());
             var message = new HttpRequestMessage(HttpMethod.Get, Route) { Content = content };
             var response = await _httpClient.SendAsync(message, cancellationToken).ConfigureAwait(false);
