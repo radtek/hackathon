@@ -20,8 +20,11 @@ namespace XPInc.Hackathon.Core.Application.UseCases.Commands.Events.Handlers
             // try to create a new stream tape
             _streamingBroker.CreateGroup(notification.Key, notification.Group);
 
-            // add the new event to the stream
-            _streamingBroker.Add(notification.Key, notification.Event);
+            foreach (var @event in notification.Events)
+            {
+                // add the new events to the stream
+                _streamingBroker.Add(notification.Key, @event);
+            }
 
             return Task.CompletedTask;
         }
