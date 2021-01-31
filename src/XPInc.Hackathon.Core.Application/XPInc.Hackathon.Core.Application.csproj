@@ -4,14 +4,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoFixture" Version="[4.13.0, 5.0.0)" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="[8.0.1, 9.0.0)" />
-    <PackageReference Include="Corporate.COE.Framework.Data.EF" Version="[1.3.1, 2.0.0)" />
-    <PackageReference Include="Corporate.COE.Framework.CQRS" Version="[1.3.1, 2.0.0)" />
-    <PackageReference Include="HashDepot" Version="[2.0.3, 3.0.0)" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="[8.0.1, 9.0.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="[2.2.5, 3.0.0)" />
-    <PackageReference Include="System.Text.Json" Version="[4.7.2, 5.0.0)" />
+    <PackageReference Include="AutoFixture" Version="4.15.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="HashDepot" Version="2.0.3" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0" />
 
     <!-- Project References -->
     <ProjectReference Include="..\XPInc.Hackathon.Core.Domain\XPInc.Hackathon.Core.Domain.csproj" />
