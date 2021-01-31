@@ -39,7 +39,7 @@ namespace XPInc.Hackathon.Infrastructure
             var zabbixOptions = services.GetOptions<ZabbixOptions>().Value; // get zabbix service options
 
             services
-                .AddHttpClient<IIncidentService, ZabbixIncidentService>(cfg =>
+                .AddHttpClient<IEventService, ZabbixEventService>(cfg =>
                 {
                     cfg.BaseAddress = new Uri(zabbixOptions.Endpoint);
                 })

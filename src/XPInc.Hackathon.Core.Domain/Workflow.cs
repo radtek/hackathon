@@ -9,7 +9,7 @@ namespace XPInc.Hackathon.Core.Domain
     {
         private readonly List<TeamMember> _members = new List<TeamMember>();
 
-        public Incident Incident { get; private set; }
+        public Event Incident { get; private set; }
 
         public IReadOnlyCollection<TeamMember> Members => _members;
 

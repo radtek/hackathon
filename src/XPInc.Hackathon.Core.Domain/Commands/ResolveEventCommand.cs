@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace XPInc.Hackathon.Core.Domain.Commands
 {
-    public sealed class ResolveIncidentCommand : IDomainCommand
+    public sealed class ResolveEventCommand : IDomainCommand
     {
         public string Username { get; set; }
 

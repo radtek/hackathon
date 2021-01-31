@@ -4,7 +4,7 @@ using XPInc.Hackathon.Core.Domain.Commands;
 
 namespace XPInc.Hackathon.Core.Domain
 {
-    public sealed class Incident
+    public sealed class Event
     {
         private readonly List<string> _tags = new List<string>();
 
@@ -36,12 +36,12 @@ namespace XPInc.Hackathon.Core.Domain
 
         public IReadOnlyCollection<Action> Actions => _actions;
 
-        private Incident()
+        private Event()
         { }
 
-        public static Incident Create(CreateIncidentCommand command)
+        public static Event Create(CreateEventCommand command)
         {
-            var incident = new Incident
+            var incident = new Event
             {
                 TrackId = Guid.NewGuid(),
                 EventId = command.EventId,
@@ -70,7 +70,7 @@ namespace XPInc.Hackathon.Core.Domain
 
         public void AddAction(Action action) => _actions.Add(action);
 
-        public void Resolve(ResolveIncidentCommand command)
+        public void Resolve(ResolveEventCommand command)
         {
             Status = IncidentStatus.Resolved;
             RecoveryTime = DateTimeOffset.Now;
@@ -87,7 +87,7 @@ namespace XPInc.Hackathon.Core.Domain
             _actions.Add(action);
         }
 
-        public void Ack(AckIncidentCommand command)
+        public void Ack(AckEventCommand command)
         {
             var actionCommand = new CreateActionCommand
             {

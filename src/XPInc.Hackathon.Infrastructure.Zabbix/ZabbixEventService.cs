@@ -12,7 +12,7 @@ using XPInc.Hackathon.Infrastructure.Zabbix.Models;
 
 namespace XPInc.Hackathon.Infrastructure.Zabbix
 {
-    public sealed class ZabbixIncidentService : IIncidentService
+    public sealed class ZabbixEventService : IEventService
     {
         private static readonly object s_lock = new object();
         private static string s_token;
@@ -34,18 +34,15 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
         private readonly HttpClient _httpClient;
         private readonly IMapper _mapper;
 
-        public ZabbixIncidentService(HttpClient httpClient, IMapper mapper)
+        public ZabbixEventService(HttpClient httpClient, IMapper mapper)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<Incident>> GetIncidentsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Event>> GetEventsAsync(CancellationToken cancellationToken = default)
         {
-            //if (Token == default)
-            //{
             Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
-            //}
 
             var body = new
             {
@@ -53,7 +50,8 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
                 method = "event.get",
                 @params = new
                 {
-                    limit = 50
+                    groupids = new[] { "65" },
+                    acknowledged = false
                 },
                 auth = Token,
                 id = 1
@@ -67,20 +65,17 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
 
             var responseAsString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var result = responseAsString.FromJson<EventResult>();
-            var incidents = new List<Incident>();
+            var events = new List<Event>();
 
             result.Content
-                .ToList().ForEach(item => incidents.Add(_mapper.Map<Incident>(item))); // map result to domain type
+                .ToList().ForEach(item => events.Add(_mapper.Map<Event>(item))); // map result to domain type
 
-            return incidents;
+            return events;
         }
 
-        public async Task<IEnumerable<string>> AckAsync(IEnumerable<Incident> incidents, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<string>> AckAsync(IEnumerable<Event> incidents, CancellationToken cancellationToken = default)
         {
-            //if (Token == default)
-            //{
             Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
-            //}
 
             var body = new
             {

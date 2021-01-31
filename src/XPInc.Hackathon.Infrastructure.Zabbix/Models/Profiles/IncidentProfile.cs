@@ -8,9 +8,9 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles
     {
         public IncidentProfile()
         {
-            CreateMap<EventDto, Incident>()
+            CreateMap<EventDto, Event>()
                 .ConstructUsing(_ =>
-                    Incident.Create(new CreateIncidentCommand(int.Parse(_.Severity)) // severity must be an integer
+                    Event.Create(new CreateEventCommand(int.Parse(_.Severity)) // severity must be an integer
                     {
                         EventId = _.EventId,
                         Host = _.Source,

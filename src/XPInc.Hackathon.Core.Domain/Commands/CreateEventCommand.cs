@@ -4,7 +4,7 @@ using XPInc.Hackathon.Core.Domain.Strategies;
 
 namespace XPInc.Hackathon.Core.Domain.Commands
 {
-    public sealed class CreateIncidentCommand : IDomainCommand
+    public sealed class CreateEventCommand : IDomainCommand
     {
         public string Username { get; set; }
 
@@ -20,10 +20,10 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 
         public IEnumerable<string> Tags { get; set; }
 
-        public CreateIncidentCommand()
+        public CreateEventCommand()
         { }
 
-        public CreateIncidentCommand(int severity) => Severity = severity switch
+        public CreateEventCommand(int severity) => Severity = severity switch
         {
             1 => new DisasterLevel(),
             2 => new HighLevel(),
