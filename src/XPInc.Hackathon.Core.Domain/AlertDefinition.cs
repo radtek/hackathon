@@ -25,21 +25,21 @@ namespace XPInc.Hackathon.Core.Domain
 
         public Workflow BuildNotifcationWorkflow()
         {
-
+            throw new NotImplementedException();
         }
 
         public static AlertDefinition Create(CreateAlertDefinitionCommand command)
         {
             var alertDefinition = new AlertDefinition
             {
-                Incident = command.Event
+                //Incident = command.Event
             };
             var workflowCommand = new CreateWorkflowCommand
             {
                 Event = command.Event
             };
 
-            alertDefinition.Workflow = Workflow.Create(workflowCommand); // create a new workflow
+            //alertDefinition.Workflow = Workflow.Create(workflowCommand); // create a new workflow
 
             return alertDefinition;
         }
