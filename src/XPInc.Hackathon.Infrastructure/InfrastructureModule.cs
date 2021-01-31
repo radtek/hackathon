@@ -15,7 +15,7 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
     public static class InfrastructureModule
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services,
-                                                   IConfiguration configuration)
+                                                           IConfiguration configuration)
         {
             services
                 .CreateOptions(configuration)
