@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,12 +11,15 @@
     <PackageReference Include="HashDepot" Version="2.0.3" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
 
-    <!-- Project References -->
+  <!-- Project References -->
+  <ItemGroup>
     <ProjectReference Include="..\XPInc.Hackathon.Core.Domain\XPInc.Hackathon.Core.Domain.csproj" />
     <ProjectReference Include="..\XPInc.Hackathon.Framework\XPInc.Hackathon.Framework.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <Folder Include="Ports\Dto\" />
   </ItemGroup>

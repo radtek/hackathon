@@ -5,15 +5,15 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 {
     public sealed class CreateTeamMemberCommand : IDomainCommand
     {
-        public string Name { get; init; }
+        public string Name { get; set; }
 
-        public string Username { get; init; }
+        public string Username { get; set; }
 
-        public string Email { get; init; }
+        public string Email { get; set; }
 
-        public string Phone { get; init; }
+        public string Phone { get; set; }
 
-        public TeamMember Manager { get; init; }
+        public TeamMember Manager { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

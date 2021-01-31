@@ -1,7 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
 	<ItemGroup>
 	  <ProjectReference Include="..\XPInc.Hackathon.Core.Application\XPInc.Hackathon.Core.Application.csproj" />
 	</ItemGroup>
