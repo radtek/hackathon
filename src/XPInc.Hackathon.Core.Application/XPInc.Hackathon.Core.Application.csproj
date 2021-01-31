@@ -22,5 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Ports\Dto\" />
+    <Folder Include="UseCases\Commands\" />
+    <Folder Include="UseCases\Queries\" />
   </ItemGroup>
 </Project>
