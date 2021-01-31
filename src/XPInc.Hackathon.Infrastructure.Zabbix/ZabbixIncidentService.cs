@@ -42,10 +42,10 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
 
         public async Task<IEnumerable<Incident>> GetIncidentsAsync(CancellationToken cancellationToken = default)
         {
-            if (Token == default)
-            {
-                Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
-            }
+            //if (Token == default)
+            //{
+            Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
+            //}
 
             var body = new
             {
@@ -55,6 +55,7 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
                 {
                     limit = 50
                 },
+                auth = Token,
                 id = 1
             };
             var content = new StringContent(body.ToJson());
@@ -76,10 +77,10 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
 
         public async Task<IEnumerable<string>> AckAsync(IEnumerable<Incident> incidents, CancellationToken cancellationToken = default)
         {
-            if (Token == default)
-            {
-                Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
-            }
+            //if (Token == default)
+            //{
+            Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
+            //}
 
             var body = new
             {
@@ -90,6 +91,7 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
                     eventids = incidents.Select(_ => _.EventId),
                     message = "Problem resolved"
                 },
+                auth = Token,
                 id = 1
             };
             var content = new StringContent(body.ToJson());
