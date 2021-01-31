@@ -60,7 +60,7 @@ namespace XPInc.Hackathon.Framework.Extensions
             return string.Join('&', array);
         }
 
-        public static IOptions<T> GetOptions<T>(this IServiceCollection services) where T : class
+        public static IOptions<T> GetOptions<T>(this IServiceCollection services) where T : class, new()
         {
             var provider = services.BuildServiceProvider();
 

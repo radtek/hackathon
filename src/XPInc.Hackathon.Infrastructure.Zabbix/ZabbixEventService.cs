@@ -40,6 +40,11 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        public Task<IEnumerable<Team>> GetTeamsAsync(CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Event>> GetEventsAsync(CancellationToken cancellationToken = default)
         {
             Token = await AuthenticateAsync(cancellationToken).ConfigureAwait(false); // get a fresh new token
@@ -50,8 +55,10 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
                 method = "event.get",
                 @params = new
                 {
-                    groupids = new[] { "65" },
-                    acknowledged = false
+                    groupids = new[] { "65" }, //TODO: get all groups
+                    acknowledged = false,
+                    sortfield = new[] { "clock" }, // filter by time of creation
+                    sortorder = "asc" // filter oldest first
                 },
                 auth = Token,
                 id = 1
