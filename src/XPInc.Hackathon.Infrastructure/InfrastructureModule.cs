@@ -1,14 +1,21 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Network;
 using XPInc.Hackathon.Core.Application.DependencyInjection;
+using XPInc.Hackathon.Framework.Data.Contexts;
 using XPInc.Hackathon.Framework.Serialization;
 using XPInc.Hackathon.Infrastructure.Configuration;
+using XPInc.Hackathon.Infrastructure.Data.Contexts;
 
 namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 {
@@ -48,7 +55,56 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 
         private static IServiceCollection CreateDatabases(this IServiceCollection services, IConfiguration configuration)
         {
+            services.SetupNoctifyCollections(configuration);
+
+            // Setting up ADO databases
+            services.TryAddScoped<IDataContextCollection>(factory =>
+            {
+                var dataContexts = new DataContextCollection();
+
+                dataContexts.AddContext(factory.GetService<NoctifyCollectionsDataContext>());
+
+                return dataContexts;
+            });
+
             return services;
+        }
+
+        private static IServiceCollection SetupNoctifyCollections(this IServiceCollection services, IConfiguration configuration)
+        {
+            try
+            {
+                var url = configuration["ConnectionStrings:NoctifyCollections"];
+                var mongoUrl = new MongoUrl(url);
+
+                var client = new MongoClient(mongoUrl);
+                var database = client.GetDatabase(mongoUrl.DatabaseName);
+
+                var collectionNames = string.Join(", ", database.ListCollectionNames().ToList());
+                Log.Information("Successfuly connected to database. Collections sample: {collectionNames}.", collectionNames);
+
+                BsonSerializer.RegisterSerializer(DateTimeSerializer.LocalInstance);
+
+                var pack = new ConventionPack
+                {
+                    new IgnoreExtraElementsConvention(true)
+                };
+
+                ConventionRegistry.Register("Basic", pack, a => true);
+
+                //Connection
+                services.TryAddSingleton<IMongoClient>(client);
+                services.TryAddSingleton(database);
+
+                services.TryAddScoped<NoctifyCollectionsDataContext>();
+
+                return services;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "An unexpected error ocurred.");
+                throw;
+            }
         }
 
 #pragma warning disable S1172  // DI container injects IConfiguration on runtime.
