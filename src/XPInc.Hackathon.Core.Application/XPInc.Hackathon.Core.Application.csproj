@@ -6,4 +6,7 @@
     <ProjectReference Include="..\XPInc.Hackathon.Core.Domain\XPInc.Hackathon.Core.Domain.csproj" />
     <ProjectReference Include="..\XPInc.Hackathon.Framework\XPInc.Hackathon.Framework.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ports\Dto\" />
+  </ItemGroup>
 </Project>

@@ -1,8 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using XPInc.Hackathon.Core.Application;
 using XPInc.Hackathon.Framework.Streaming;
 using XPInc.Hackathon.Infrastructure.Streaming;
+using XPInc.Hackathon.Infrastructure.Zabbix;
 
 namespace XPInc.Hackathon.Infrastructure
 {
@@ -19,6 +22,12 @@ namespace XPInc.Hackathon.Infrastructure
 
             // configure CQRS stack
             services.AddMediatR(typeof(Module));
+
+            // configure application ports & adapters
+            services.AddHttpClient<IIncidentService, ZabbixIncidentService>(cfg =>
+            {
+                cfg.BaseAddress = new Uri("");
+            });
 
             return services;
         }
