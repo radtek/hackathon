@@ -14,17 +14,17 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
 {
     public sealed class ZabbixIncidentService : IIncidentService
     {
-        private static readonly object _lock = new object();
+        private static readonly object s_lock = new object();
         private static string s_token;
 
-        private const string Route = "zabbix-hml/api_jsonrpc.php";
+        private const string Route = "api_jsonrpc.php";
 
         public static string Token
         {
             get { return s_token; }
             set
             {
-                lock (_lock)
+                lock (s_lock)
                 {
                     s_token = value;
                 }
