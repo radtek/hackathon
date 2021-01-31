@@ -5,7 +5,7 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 {
     public sealed class CreateAlertDefinitionCommand : IDomainCommand
     {
-        public Incident Incident { get; init; }
+        public Incident Incident { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

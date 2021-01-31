@@ -5,13 +5,13 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 {
     public sealed class CreateActionCommand : IDomainCommand
     {
-        public string Username { get; init; }
+        public string Username { get; set; }
 
-        public ActionType Type { get; init; }
+        public ActionType Type { get; set; }
 
-        public string Message { get; init; }
+        public string Message { get; set; }
 
-        public ActionStatus Status { get; init; }
+        public ActionStatus Status { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

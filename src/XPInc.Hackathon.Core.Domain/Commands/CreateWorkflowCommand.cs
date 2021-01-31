@@ -5,9 +5,9 @@ namespace XPInc.Hackathon.Core.Domain.Commands
 {
     public sealed class CreateWorkflowCommand : IDomainCommand
     {
-        public Incident Incident { get; init; }
+        public Incident Incident { get; set; }
 
-        public IEnumerable<Team> Teams { get; init; }
+        public IEnumerable<Team> Teams { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
