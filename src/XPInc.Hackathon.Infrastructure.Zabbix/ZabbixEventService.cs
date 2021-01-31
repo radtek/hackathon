@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using XPInc.Hackathon.Core.Application;
+using XPInc.Hackathon.Core.Application.Services;
 using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Framework.Extensions;
 using XPInc.Hackathon.Infrastructure.Zabbix.Models;
@@ -14,6 +14,8 @@ namespace XPInc.Hackathon.Infrastructure.Zabbix
 {
     public sealed class ZabbixEventService : IEventService
     {
+        public static string Name { get; } = "zabbix-httpclient";
+
         private static readonly object s_lock = new object();
         private static string s_token;
 

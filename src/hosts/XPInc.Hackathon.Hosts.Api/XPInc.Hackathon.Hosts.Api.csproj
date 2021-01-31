@@ -17,5 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\XPInc.Hackathon.Hosts.BackgroundService\XPInc.Hackathon.Hosts.BackgroundService.csproj" />
     <ProjectReference Include="..\..\XPInc.Hackathon.Core.Application\XPInc.Hackathon.Core.Application.csproj" />
+    <ProjectReference Include="..\..\XPInc.Hackathon.Infrastructure\XPInc.Hackathon.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
