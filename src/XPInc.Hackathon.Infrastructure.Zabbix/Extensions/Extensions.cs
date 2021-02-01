@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using RestSharp;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages.Base;
-using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages.Request;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Request;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Response;
 

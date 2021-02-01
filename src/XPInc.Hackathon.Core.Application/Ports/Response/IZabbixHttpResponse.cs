@@ -1,4 +1,4 @@
-﻿namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Response
+﻿namespace XPInc.Hackathon.Infrastructure.Zabbix.Response
 {
     public interface IZabbixHttpResponse
     {

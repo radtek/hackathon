@@ -6,10 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using RestSharp;
-using XPInc.Hackathon.Core.Application.Services;
-using XPInc.Hackathon.Core.Domain;
 using XPInc.Hackathon.Infrastructure.Zabbix.Enums;
-using XPInc.Hackathon.Infrastructure.Zabbix.Models.Request;
+using XPInc.Hackathon.Infrastructure.Zabbix.Filters;
 using XPInc.Hackathon.Infrastructure.Zabbix.Response;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Extensions;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages;
@@ -30,14 +28,14 @@ namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<string>> AckAsync(IEnumerable<Event> events, ActionAcknowledge? action = null, string message = "", SeverityAcknowledge? severity = null, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<string>> AckAsync(IEnumerable<EventZabbix> events, ActionAcknowledge? action = null, string message = "", SeverityAcknowledge? severity = null, CancellationToken cancellationToken = default)
         {
             var acked = new List<string>();
             message = "Problem resolved";
             action = action.HasValue ? action : (ActionAcknowledge)6;
 
             await _client.ExecutePostAsync(new EventRequest(new EventAcknowledgeMessage(
-                                                                events.Select(_ => _.Id).ToArray(),
+                                                                events.Select(_ => _.EventId).ToArray(),
                                                                 (ActionAcknowledge)action,
                                                                 message,
                                                                 severity)
@@ -66,11 +64,11 @@ namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Event>> GetEventsAsync(EventFilterRequest request, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<EventZabbix>> GetEventsAsync(EventZabbixFilter filter, CancellationToken cancellationToken = default)
         {
-            var events = new List<Event>();
+            var events = new List<EventZabbix>();
 
-            Task task1 = _client.ExecutePostAsync(new EventRequest(new EventMessage(request)), cancellationToken)
+            Task task1 = _client.ExecutePostAsync(new EventRequest(new EventMessage(filter)), cancellationToken)
                               .ContinueWith(t =>
                                             {
                                                 try
@@ -78,7 +76,7 @@ namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Services
                                                     if (t.Result != null && t.Result.StatusCode == HttpStatusCode.OK)
                                                     {
                                                         var result = t.Result.Content.JsonAs<EventResponse>();
-                                                        result.Events.ToList().ForEach(item => events.Add(_mapper.Map<Event>(item))); // map result to domain type
+                                                        events.AddRange(result.Events);
                                                     }
                                                 }
                                                 catch (Exception ex)

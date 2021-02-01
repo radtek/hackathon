@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using XPInc.Hackathon.Infrastructure.Zabbix.Enums;
-using XPInc.Hackathon.Infrastructure.Zabbix.Models.Request;
+using XPInc.Hackathon.Infrastructure.Zabbix.Filters;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Attributes;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Enums;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Extensions;
@@ -45,16 +44,16 @@ namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages
             this.Authentication();
         }
 
-        public EventMessage(EventFilterRequest request)
+        public EventMessage(EventZabbixFilter filter)
         {
             this.Message =
                 new EventModel
                 {
                     Limit = null,
-                    GroupIds = request.GroupIds,
-                    Acknowledged = request.Acknowledged,
-                    Sortfield = request.Sortfield,
-                    Sortorder = request.Sortorder
+                    GroupIds = filter.GroupIds,
+                    Acknowledged = filter.Acknowledged,
+                    Sortfield = filter.Sortfield,
+                    Sortorder = filter.Sortorder
                 };
             this.Authentication();
         }
@@ -85,9 +84,6 @@ namespace XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Messages
             }
         }
     }
-
-
-
     public sealed class EventAcknowledgeMessage : HttpSendMessageBase<EventAcknowledgeModel>, IEventMessage
     {
         public EventAcknowledgeMessage(object eventIds, ActionAcknowledge actionacknowledge, string messageEvent = "", SeverityAcknowledge? severity = null)

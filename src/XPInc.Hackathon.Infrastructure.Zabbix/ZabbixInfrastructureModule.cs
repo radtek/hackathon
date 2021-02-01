@@ -7,9 +7,7 @@ using Microsoft.Extensions.Options;
 using Polly;
 using RestSharp;
 using XPInc.Hackathon.Infrastructure.Configuration;
-using XPInc.Hackathon.Infrastructure.Zabbix.Models.Profiles;
 using XPInc.Hackathon.XPInc.Hackathon.Infrastructure.Zabbix.Services;
-using XPInc.Hackathon.Core.Application.Services;
 
 namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 {
@@ -74,13 +72,13 @@ namespace XPInc.Hackathon.Infrastructure.DependencyInjection
 
         private static IServiceCollection CreateProfiles(this IServiceCollection services)
         {
-            services.TryAddSingleton(provider =>
-            {
-                return new MapperConfiguration(configure =>
-                {
-                    configure.AddProfile(new IncidentProfile());
-                });
-            });
+            //services.TryAddSingleton(provider =>
+            //{
+            //    return new MapperConfiguration(configure =>
+            //    {
+            //        configure.AddProfile(new IncidentProfile());
+            //    });
+            //});
 
             return services;
         }
